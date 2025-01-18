@@ -3,6 +3,7 @@ package com.baekyathon.dodam.diary;
 import com.baekyathon.dodam.DiaryRecord.DiaryRecord;
 import com.baekyathon.dodam.baby.Baby;
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,7 +31,7 @@ public class Diary {
   private Baby baby;
 
   @Column(name = "date", nullable = false)
-  private Date date;
+  private LocalDateTime date;
 
   @Column(name = "memo")
   private String memo;

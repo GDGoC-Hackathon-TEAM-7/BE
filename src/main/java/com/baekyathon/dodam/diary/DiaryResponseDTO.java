@@ -2,6 +2,7 @@ package com.baekyathon.dodam.diary;
 
 
 import com.baekyathon.dodam.DiaryRecord.DiaryRecordDTO;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DiaryResponseDTO {
 
-    private String date;
+    private LocalDateTime date;
     private List<DiaryRecordDTO> records;
 
-    public DiaryResponseDTO(String date, List<DiaryRecordDTO> records) {
-        this.date = date;
+    public DiaryResponseDTO(LocalDateTime date,List<DiaryRecordDTO> records) {
         this.records = records;
+        this.date = date;
     }
-
-
 }

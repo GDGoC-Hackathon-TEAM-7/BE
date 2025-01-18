@@ -22,10 +22,10 @@ public class DiaryRecordService {
 
 
 
-    public DiaryRecordDTO saveDiaryRecord(Long babyId, String category, String date) {
+    public DiaryRecordDTO saveDiaryRecord(Long babyId, String category, LocalDateTime date) {
         // Baby와 관련된 Diary를 찾거나 생성 (여기선 날짜로 조회 가능)
         Diary diary = diaryRepository.findByBabyIdAndDate(babyId, date)
-            .orElseGet(() -> createNewDiary(babyId, date)); // 없으면 새로 생성
+            .orElseGet(() -> createNewDiary(babyId, String.valueOf(date))); // 없으면 새로 생성
 
         // 새로운 DiaryRecord 생성
         DiaryRecord diaryRecord = new DiaryRecord();
@@ -45,7 +45,7 @@ public class DiaryRecordService {
 
         Diary diary = new Diary();
         diary.setBaby(baby);
-        diary.setDate(Date.valueOf(date)); // 날짜 설정
+        diary.setDate(LocalDateTime.parse(date)); // 날짜 설정
 
         return diaryRepository.save(diary);
     }

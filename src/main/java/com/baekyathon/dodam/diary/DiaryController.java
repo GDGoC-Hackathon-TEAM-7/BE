@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/diary")
-@Tag(name = "회원", description = "회원 관련 API")
+@Tag(name = "다이어리", description = "다이어리 관련 API")
 public class DiaryController {
 
   private final DiaryService diaryService;
@@ -35,10 +36,10 @@ public class DiaryController {
   @GetMapping("/{id}")
   public ResponseEntity<BaseResponse<DiaryResponseDTO>> getDiaryRecordsByDate(
       @PathVariable Long id,
-      @RequestParam String date) {
+      @RequestParam LocalDateTime date) {
     try {
       // 날짜별로 기록을 조회
-      List<DiaryRecordDTO> records = diaryService.getDiaryRecordsByDate(id, date);
+      List<DiaryRecordDTO> records = diaryService.getDiaryRecordsByDate(id, String.valueOf(date));
 
       // 조회한 기록을 DiaryResponseDTO로 변환
       DiaryResponseDTO responseDTO = new DiaryResponseDTO(date, records);

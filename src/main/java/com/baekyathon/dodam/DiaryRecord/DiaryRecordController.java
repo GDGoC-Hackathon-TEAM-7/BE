@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/record")
-@Tag(name = "회원", description = "회원 관련 API")
+@Tag(name = "레코드 기록", description = "record 기록 관련 API")
 public class DiaryRecordController {
 
   private final DiaryRecordService diaryRecordService;
@@ -44,7 +45,7 @@ public class DiaryRecordController {
       @RequestParam String date) {
     try {
       // 날짜, 카테고리, babyId를 기반으로 기록 저장
-      diaryRecordService.saveDiaryRecord(babyId, category, date);
+      diaryRecordService.saveDiaryRecord(babyId, category, LocalDateTime.parse(date));
 
       // 성공적으로 저장된 경우 HTTP 200 OK 응답만 반환
       return ResponseEntity.ok().build(); // 응답 본문 없이 HTTP 200 OK 반환
