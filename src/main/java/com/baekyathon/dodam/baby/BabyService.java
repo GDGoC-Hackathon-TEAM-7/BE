@@ -1,9 +1,6 @@
-package com.baekyathon.dodam.service;
+package com.baekyathon.dodam.baby;
 
 import com.baekyathon.dodam.base.CustomException;
-import com.baekyathon.dodam.domain.Baby;
-import com.baekyathon.dodam.dto.baby.BabyInfoDto;
-import com.baekyathon.dodam.repository.BabyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

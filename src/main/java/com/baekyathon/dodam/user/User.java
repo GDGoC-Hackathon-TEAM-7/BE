@@ -1,4 +1,4 @@
-package com.baekyathon.dodam.domain;
+package com.baekyathon.dodam.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

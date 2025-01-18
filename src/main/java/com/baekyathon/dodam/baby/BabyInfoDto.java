@@ -1,6 +1,5 @@
-package com.baekyathon.dodam.dto.baby;
+package com.baekyathon.dodam.baby;
 
-import com.baekyathon.dodam.domain.Baby;
 import lombok.Builder;
 
 import java.util.Date;

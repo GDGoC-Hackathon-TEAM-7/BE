@@ -1,12 +1,10 @@
-package com.baekyathon.dodam.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.baekyathon.dodam.baby;
+import com.baekyathon.dodam.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 

@@ -1,6 +1,5 @@
-package com.baekyathon.dodam.repository;
+package com.baekyathon.dodam.baby;
 
-import com.baekyathon.dodam.domain.Baby;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,12 +1,9 @@
-package com.baekyathon.dodam.controller;
+package com.baekyathon.dodam.baby;
 
 import com.baekyathon.dodam.base.BaseResponse;
-import com.baekyathon.dodam.dto.baby.BabyInfoDto;
-import com.baekyathon.dodam.service.BabyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
