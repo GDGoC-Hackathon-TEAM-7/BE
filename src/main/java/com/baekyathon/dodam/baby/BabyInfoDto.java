@@ -9,13 +9,15 @@ import java.util.Date;
 public record BabyInfoDto(
         String name,
         String gender,
-        LocalDate birth
+        LocalDate birth,
+        String profileImg
 ){
     public static BabyInfoDto from (Baby baby) {
         return BabyInfoDto.builder()
                 .name(baby.getName())
                 .gender(baby.getGender())
                 .birth(baby.getBirth())
+                .profileImg(baby.getProfileImg())
                 .build();
     }
 }
