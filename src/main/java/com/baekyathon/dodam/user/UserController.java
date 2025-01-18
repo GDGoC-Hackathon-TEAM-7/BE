@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -41,10 +44,19 @@ public class UserController {
     @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password) {
         boolean isAuthenticated = userService.authenticateUser(email, password);
+
         if (isAuthenticated) {
-            return ResponseEntity.ok("로그인 성공");
+            User user = userService.getUserByEmail(email);
+
+            // 로그인 성공 응답 데이터 생성
+            Map<String, Object> response = new HashMap<>();
+            response.put("userId", user.getId());
+            response.put("email", user.getEmail());
+
+            return ResponseEntity.ok(response);
         } else {
-            return ResponseEntity.status(401).body("로그인 실패");
+            return ResponseEntity.status(401).body("로그인 실패: 이메일 또는 비밀번호 오류");
         }
     }
+
 }
