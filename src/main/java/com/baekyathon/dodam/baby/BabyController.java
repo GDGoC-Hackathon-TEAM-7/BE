@@ -31,9 +31,20 @@ public class BabyController {
     }
 
     // 수정
-
+    @Operation(summary = "아이 정보 수정", description = "아이 정보를 수정하는 API")
+    @PatchMapping("/{babyId}")
+    public ResponseEntity<BaseResponse<BabyInfoDto>> updateBabyById(@PathVariable Long babyId, @RequestBody BabyInfoDto babyInfoDto) {
+        BabyInfoDto res = babyService.update(babyId, babyInfoDto);
+        return ResponseEntity.ok(BaseResponse.success(res));
+    }
 
     // 삭제
+    @Operation(summary = "아이 삭제", description = "아이 정보를 삭제하는 API")
+    @DeleteMapping("/{babyId}")
+    public void deleteBabyById(@PathVariable Long babyId) {
+        babyService.delete(babyId);
+    }
+
 
 
 

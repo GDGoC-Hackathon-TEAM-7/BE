@@ -38,4 +38,12 @@ public class Baby {
         this.gender = gender;
         this.birth = birth;
     }
+
+    public void update(String name, String gender, Date birth) {
+        this.name = name;
+        this.gender = gender;
+        this.birth = birth;
+    }
+
+
 }

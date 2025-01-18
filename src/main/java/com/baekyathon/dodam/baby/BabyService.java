@@ -27,5 +27,18 @@ public class BabyService {
         return BabyInfoDto.from(baby);
     }
 
+    @Transactional
+    public BabyInfoDto update(Long babyId, BabyInfoDto babyInfoDto) {
+        Baby baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new CustomException(BABY_NOT_FOUND));
+        baby.update(babyInfoDto.name(), babyInfoDto.gender(), babyInfoDto.birth());
+        return BabyInfoDto.from(baby);
+    }
+
+    @Transactional
+    public void delete(Long babyId) {
+        babyRepository.deleteById(babyId);
+    }
+
 
 }

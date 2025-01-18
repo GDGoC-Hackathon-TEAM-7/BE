@@ -1,5 +1,6 @@
 package com.baekyathon.dodam.user;
 
+import com.baekyathon.dodam.baby.Baby;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
