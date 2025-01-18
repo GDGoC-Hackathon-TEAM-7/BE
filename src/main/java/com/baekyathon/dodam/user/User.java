@@ -1,10 +1,15 @@
 package com.baekyathon.dodam.user;
 
+import com.baekyathon.dodam.baby.Baby;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "user")
 @Getter
@@ -25,6 +30,10 @@ public class User {
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Baby> babyList = new ArrayList<>();
 
     @Builder
     public User(String email, String password, String nickname) {
