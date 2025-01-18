@@ -32,7 +32,7 @@ public class User {
     private String nickname;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Baby> babyList = new ArrayList<>();
 
     @Builder

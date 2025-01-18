@@ -1,12 +1,16 @@
 package com.baekyathon.dodam.baby;
+import com.baekyathon.dodam.diary.Diary;
 import com.baekyathon.dodam.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name="baby")
 @Entity
@@ -14,36 +18,41 @@ import java.util.Date;
 @NoArgsConstructor
 public class Baby {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", updatable = false)
+  private Long id;
 
-    @Column(name="name", nullable = false)
-    private String name;
+  @Column(name="name", nullable = false)
+  private String name;
 
-    @Column(name="gender", nullable = false)
-    private String gender;
+  @Column(name="gender", nullable = false)
+  private String gender;
 
-    @Column(name="birth", nullable = false)
-    private Date birth;
+  @Column(name="birth", nullable = false)
+  private LocalDate birth;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+  @ManyToOne(fetch=FetchType.LAZY)
+  @JoinColumn(name="user_id")
+  private User user;
 
-    @Builder
-    public Baby(String name, String gender, Date birth) {
-        this.name = name;
-        this.gender = gender;
-        this.birth = birth;
-    }
+  @OneToMany(mappedBy = "baby", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  List<Diary> diaryList = new ArrayList<>();
 
-    public void update(String name, String gender, Date birth) {
-        this.name = name;
-        this.gender = gender;
-        this.birth = birth;
-    }
+  @Builder
+  public Baby(String name, String gender, LocalDate birth, User user) {
+    this.name = name;
+    this.gender = gender;
+    this.birth = birth;
+    this.user = user;
+  }
+
+  public void update(String name, String gender, LocalDate birth) {
+    this.name = name;
+    this.gender = gender;
+    this.birth = birth;
+  }
 
 
 }

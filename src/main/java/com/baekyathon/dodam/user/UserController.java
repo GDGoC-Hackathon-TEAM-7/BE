@@ -1,14 +1,10 @@
 package com.baekyathon.dodam.user;
 
-import com.baekyathon.dodam.user.SignUpDTO;
-import com.baekyathon.dodam.user.User;
-import com.baekyathon.dodam.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,13 +38,13 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "로그인 실패: 이메일 또는 비밀번호 오류",
                     content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json"))
     })
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password) {
         boolean isAuthenticated = userService.authenticateUser(email, password);
         if (isAuthenticated) {
-            return ResponseEntity.status(HttpStatus.OK).body("로그인 성공");
+            return ResponseEntity.ok("로그인 성공");
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
+            return ResponseEntity.status(401).body("로그인 실패");
         }
     }
 }
