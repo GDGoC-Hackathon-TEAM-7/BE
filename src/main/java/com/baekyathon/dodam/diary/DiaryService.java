@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.baekyathon.dodam.base.ErrorCode.BABY_NOT_FOUND;
+import static com.baekyathon.dodam.base.ErrorCode.DIARY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +28,8 @@ public class DiaryService {
 
     @Transactional
     public Long findDiaryIdByBabyIdAndDate(Long babyId, LocalDate date) {
-        return diaryRepository.findByBabyIdAndDate(babyId, date)
-                .map(Diary::getId)
-                .orElseThrow(() -> new CustomException(BABY_NOT_FOUND)); // 존재하지 않는 경우 예외 처리
+        return diaryRepository.findDiaryIdByBabyIdAndDate(babyId, date)
+                .orElseThrow(() -> new CustomException(DIARY_NOT_FOUND));
     }
 
     // Diary 생성
