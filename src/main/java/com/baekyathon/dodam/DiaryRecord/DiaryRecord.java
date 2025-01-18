@@ -34,10 +34,10 @@ public class DiaryRecord {
   private Category category; // Enum 타입 (식사, 수면 등)
 
   public enum Category {
-    식사,
-    기저귀,
-    수면,
-    기상,
+    meal,
+    Diaper,
+    sleep,
+    wakeup,
 
   }
   public DiaryRecord(Diary diary, Category category) {

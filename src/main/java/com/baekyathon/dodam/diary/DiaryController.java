@@ -4,6 +4,7 @@ package com.baekyathon.dodam.diary;
 
 import com.baekyathon.dodam.DiaryRecord.DiaryRecordDTO;
 import com.baekyathon.dodam.base.BaseResponse;
+import com.baekyathon.dodam.base.CustomException;
 import com.baekyathon.dodam.user.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.baekyathon.dodam.base.ErrorCode.INVALID_REQUEST;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,20 +40,14 @@ public class DiaryController {
   public ResponseEntity<BaseResponse<DiaryResponseDTO>> getDiaryRecordsByDate(
       @PathVariable Long id,
       @RequestParam LocalDateTime date) {
-    try {
       // 날짜별로 기록을 조회
       List<DiaryRecordDTO> records = diaryService.getDiaryRecordsByDate(id, String.valueOf(date));
 
       // 조회한 기록을 DiaryResponseDTO로 변환
       DiaryResponseDTO responseDTO = new DiaryResponseDTO(date, records);
 
-      // 성공적으로 조회되었을 경우 응답 생성
       return ResponseEntity.ok(BaseResponse.success(responseDTO));
-    } catch (Exception e) {
-      // 오류 발생 시 적절한 실패 응답 반환
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(BaseResponse.fail(HttpStatus.BAD_REQUEST, "잘못된 요청"));
-    }
+
   }
   // 사진 첨부
 

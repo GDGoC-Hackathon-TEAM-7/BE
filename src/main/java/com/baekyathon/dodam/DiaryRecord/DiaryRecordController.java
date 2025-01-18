@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,30 +33,21 @@ public class DiaryRecordController {
   // 기록 저장
   @Operation(summary = "기록 저장", description = "기록을 저장하는 API")
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "기록 저장 성공",
-          content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json",
-              schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = DiaryResponseDTO.class))),
-      @ApiResponse(responseCode = "400", description = "잘못된 요청: 입력값 오류",
-          content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json"))
+          @ApiResponse(responseCode = "200", description = "기록 저장 성공",
+                  content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json")),
+          @ApiResponse(responseCode = "400", description = "잘못된 요청: 입력값 오류",
+                  content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json"))
   })
   @PostMapping("/save")
-  public ResponseEntity<Void> saveDiaryRecord(
-      @RequestParam Long babyId,
-      @RequestParam String category,
-      @RequestParam String date) {
-    try {
-      // 날짜, 카테고리, babyId를 기반으로 기록 저장
-      diaryRecordService.saveDiaryRecord(babyId, category, LocalDateTime.parse(date));
+  public ResponseEntity<BaseResponse<String>> saveDiaryRecord(
+          @RequestParam Long babyId,
+          @RequestParam String category,
+          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+    diaryRecordService.saveDiaryRecord(babyId, category, date);
 
-      // 성공적으로 저장된 경우 HTTP 200 OK 응답만 반환
-      return ResponseEntity.ok().build(); // 응답 본문 없이 HTTP 200 OK 반환
-
-    } catch (Exception e) {
-      // 오류 발생 시 실패 응답 반환
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+    // 성공적으로 저장된 경우 응답
+    return ResponseEntity.ok(BaseResponse.success("Record saved successfully"));
   }
-
 }
 
 

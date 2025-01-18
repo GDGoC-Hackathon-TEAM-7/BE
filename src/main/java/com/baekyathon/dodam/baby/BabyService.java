@@ -15,7 +15,7 @@ public class BabyService {
 
     @Transactional
     public BabyInfoDto addBaby(BabyInfoDto babyInfoDto) {
-        Baby baby = babyInfoDto.toEntity(babyInfoDto);
+        Baby baby = babyInfoDto.toEntity();
         babyRepository.save(baby);
         return BabyInfoDto.from(baby);
     }

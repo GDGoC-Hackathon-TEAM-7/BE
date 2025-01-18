@@ -17,12 +17,4 @@ public record BabyInfoDto(
                 .birth(baby.getBirth())
                 .build();
     }
-
-    public Baby toEntity(BabyInfoDto babyInfoDto) {
-        return Baby.builder()
-                .name(name)
-                .birth(birth)
-                .gender(gender)
-                .build();
-    }
 }
