@@ -17,8 +17,8 @@ public class BabyController {
 
     @Operation(summary = "아이 등록", description = "폼을 입력하여 아이를 등록할 수 있는 API")
     @PostMapping
-    public ResponseEntity<BaseResponse<BabyInfoDto>> addBaby(@RequestBody BabyInfoDto babyInfoDto) {
-        BabyInfoDto res = babyService.addBaby(babyInfoDto);
+    public ResponseEntity<BaseResponse<BabyInfoDto>> addBaby(@RequestBody BabyReqDto babyReqDto) {
+        BabyInfoDto res = babyService.addBaby(babyReqDto);
         return ResponseEntity.ok(BaseResponse.success(res));
     }
 

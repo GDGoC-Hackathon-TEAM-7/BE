@@ -33,10 +33,11 @@ public class Baby {
   private User user;
 
   @Builder
-  public Baby(String name, String gender, Date birth) {
+  public Baby(String name, String gender, Date birth, User user) {
     this.name = name;
     this.gender = gender;
     this.birth = birth;
+    this.user = user;
   }
 
   public void update(String name, String gender, Date birth) {
