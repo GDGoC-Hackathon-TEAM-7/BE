@@ -1,4 +1,4 @@
-package com.baekyathon.dodam.user;
+package com.baekyathon.dodam.domain;
 
 import jakarta.persistence.*;
 import lombok.Builder;

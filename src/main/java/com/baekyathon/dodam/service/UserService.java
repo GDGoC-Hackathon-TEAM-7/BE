@@ -1,5 +1,8 @@
-package com.baekyathon.dodam.user;
+package com.baekyathon.dodam.service;
 
+import com.baekyathon.dodam.domain.User;
+import com.baekyathon.dodam.dto.SignUpDTO;
+import com.baekyathon.dodam.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
