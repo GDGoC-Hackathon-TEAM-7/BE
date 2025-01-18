@@ -27,5 +27,4 @@ public class DiaryRecordService {
         return DiaryRecordResDto.from(savedDiaryRecord);
     }
 
-
 }

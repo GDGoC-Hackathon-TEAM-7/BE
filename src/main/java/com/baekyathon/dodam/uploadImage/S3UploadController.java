@@ -1,6 +1,7 @@
 package com.baekyathon.dodam.uploadImage;
 
 import com.amazonaws.services.s3.model.AmazonS3Exception;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/upload")
+@Tag(name = "이미지 등록", description = "이미지 등록 관련 API")
 public class S3UploadController {
 
     private final S3UploadService s3UploadService;

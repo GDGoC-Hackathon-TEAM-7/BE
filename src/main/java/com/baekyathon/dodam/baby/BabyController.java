@@ -45,7 +45,4 @@ public class BabyController {
         babyService.delete(babyId);
     }
 
-
-
-
 }
