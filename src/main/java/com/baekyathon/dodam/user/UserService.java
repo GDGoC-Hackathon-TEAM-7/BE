@@ -18,7 +18,7 @@ public class UserService {
 
     // 로그인 인증
     public boolean authenticateUser(String email, String password) {
-        Optional<User> userOpt = userRepository.findByEmail(email);
+        Optional<User> userOpt = Optional.ofNullable(userRepository.findByEmail(email));
 
         if (userOpt.isPresent()) {
             User user = userOpt.get();
@@ -26,5 +26,7 @@ public class UserService {
         }
         return false;
     }
-
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
