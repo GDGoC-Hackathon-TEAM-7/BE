@@ -20,7 +20,7 @@ public class BabyService {
     @Transactional
     public BabyInfoDto addBaby(BabyReqDto babyReqDto) {
         // User 조회
-        User user = userRepository.findById(babyReqDto.userId())
+        User user = userRepository.findByEmail(babyReqDto.email())
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         Baby baby = babyReqDto.toEntity(user);

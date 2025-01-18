@@ -1,9 +1,12 @@
 package com.baekyathon.dodam.user;
 
+import com.baekyathon.dodam.base.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.baekyathon.dodam.base.ErrorCode.USER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +21,7 @@ public class UserService {
 
     // 로그인 인증
     public boolean authenticateUser(String email, String password) {
-        Optional<User> userOpt = Optional.ofNullable(userRepository.findByEmail(email));
+        Optional<User> userOpt = userRepository.findByEmail(email);
 
         if (userOpt.isPresent()) {
             User user = userOpt.get();
@@ -27,6 +30,7 @@ public class UserService {
         return false;
     }
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
     }
 }

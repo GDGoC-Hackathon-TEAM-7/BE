@@ -23,6 +23,9 @@ public class Baby {
   @Column(name = "id", updatable = false)
   private Long id;
 
+  @Column(name = "email")
+  private String email;
+
   @Column(name="name", nullable = false)
   private String name;
 
@@ -35,20 +38,21 @@ public class Baby {
   @Column(name="profile_img")
   private String profileImg;
 
-  @ManyToOne(fetch=FetchType.LAZY)
+  @ManyToOne(fetch=FetchType.EAGER)
   @JoinColumn(name="user_id")
   private User user;
 
-  @OneToMany(mappedBy = "baby", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(mappedBy = "baby",cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnore
   List<Diary> diaryList = new ArrayList<>();
 
   @Builder
-  public Baby(String name, String gender, LocalDate birth, String profileImg, User user) {
+  public Baby(String name, String gender, LocalDate birth, String profileImg,String email, User user) {
     this.name = name;
     this.gender = gender;
     this.birth = birth;
     this.profileImg = profileImg;
+    this.email = email;
     this.user = user;
   }
 
