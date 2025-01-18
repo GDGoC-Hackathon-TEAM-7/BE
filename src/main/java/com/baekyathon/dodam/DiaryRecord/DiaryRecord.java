@@ -24,7 +24,7 @@ public class DiaryRecord {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private Category category; // Enum 타입 (식사, 수면 등)
+  private Category category;
 
   @ManyToOne
   @JoinColumn(name = "diary_id", nullable = false)
@@ -33,7 +33,7 @@ public class DiaryRecord {
   public enum Category {
     식사,
     기저귀,
-    수면,
+    취침,
     기상,
   }
 
