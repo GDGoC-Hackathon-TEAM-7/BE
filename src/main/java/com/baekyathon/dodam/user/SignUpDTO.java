@@ -1,6 +1,5 @@
-package com.baekyathon.dodam.dto;
+package com.baekyathon.dodam.user;
 
-import com.baekyathon.dodam.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
