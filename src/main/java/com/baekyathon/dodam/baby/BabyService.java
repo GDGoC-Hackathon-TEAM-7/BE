@@ -39,7 +39,7 @@ public class BabyService {
     public BabyInfoDto update(Long babyId, BabyInfoDto babyInfoDto) {
         Baby baby = babyRepository.findById(babyId)
                 .orElseThrow(() -> new CustomException(BABY_NOT_FOUND));
-        baby.update(babyInfoDto.name(), babyInfoDto.gender(), babyInfoDto.birth());
+        baby.update(babyInfoDto.name(), babyInfoDto.gender(), babyInfoDto.birth(),babyInfoDto.profileImg());
         return BabyInfoDto.from(baby);
     }
 

@@ -32,6 +32,9 @@ public class Baby {
   @Column(name="birth", nullable = false)
   private LocalDate birth;
 
+  @Column(name="profile_img")
+  private String profileImg;
+
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(name="user_id")
   private User user;
@@ -41,16 +44,18 @@ public class Baby {
   List<Diary> diaryList = new ArrayList<>();
 
   @Builder
-  public Baby(String name, String gender, LocalDate birth, User user) {
+  public Baby(String name, String gender, LocalDate birth, String profileImg, User user) {
     this.name = name;
     this.gender = gender;
     this.birth = birth;
+    this.profileImg = profileImg;
     this.user = user;
   }
 
-  public void update(String name, String gender, LocalDate birth) {
+  public void update(String name, String gender, LocalDate birth, String profileImg) {
     this.name = name;
     this.gender = gender;
     this.birth = birth;
+    this.profileImg = profileImg;
   }
 }

@@ -8,13 +8,15 @@ public record BabyReqDto (
         String name,
         String gender,
         LocalDate birth,
-        Long userId
+        Long userId,
+        String profileImg
 ){
     public Baby toEntity(User user) {
         return Baby.builder()
                 .name(name)
                 .birth(birth)
                 .gender(gender)
+                .profileImg(profileImg)
                 .user(user)
                 .build();
     }
