@@ -53,6 +53,4 @@ public class Baby {
     this.gender = gender;
     this.birth = birth;
   }
-
-
 }

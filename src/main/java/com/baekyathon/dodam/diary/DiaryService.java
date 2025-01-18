@@ -21,6 +21,15 @@ public class DiaryService {
     private final DiaryRepository diaryRepository;
     private final BabyRepository babyRepository;
 
+    // 날짜 기반으로 diaryId 알아낸다.
+
+    @Transactional(readOnly = true)
+    public Long findDiaryIdByBabyIdAndDate(Long babyId, LocalDate date) {
+        return diaryRepository.findByBabyIdAndDate(babyId, date)
+                .map(Diary::getId)
+                .orElseThrow(() -> new CustomException(BABY_NOT_FOUND)); // 존재하지 않는 경우 예외 처리
+    }
+
     // Diary 생성
     @Transactional
     public DiaryResDto createDiary(DiaryReqDto diaryReqDto) {

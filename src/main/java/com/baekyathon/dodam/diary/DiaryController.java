@@ -20,6 +20,13 @@ public class DiaryController {
 
   private final DiaryService diaryService;
 
+    @GetMapping("/find-by-date")
+    @Operation(summary = "날짜를 기반으로 diaryId를 알아낸다.", description = "날짜를 기반으로 diaryId 를 알아낸다.")
+    public Long findDiaryIdByDate(@RequestParam Long babyId, @RequestParam String date) {
+        LocalDate localDate = LocalDate.parse(date); // 날짜 변환
+        return diaryService.findDiaryIdByBabyIdAndDate(babyId, localDate);
+    }
+
     @PostMapping
     @Operation(summary = "Diary 생성", description = "아이의 특정 날짜에 대한 Diary를 생성합니다.")
     public ResponseEntity<DiaryResDto> createDiary(
@@ -27,8 +34,6 @@ public class DiaryController {
         DiaryResDto response = diaryService.createDiary(request);
         return ResponseEntity.ok(response);
     }
-
-
 
     @GetMapping("/records")
     @Operation(summary = "Diary와 DiaryRecord 조회", description = "특정 아이와 날짜를 기준으로 Diary와 모든 DiaryRecord를 조회합니다.")
