@@ -2,12 +2,13 @@ package com.baekyathon.dodam.diary;
 
 import com.baekyathon.dodam.DiaryRecord.DiaryRecord;
 import com.baekyathon.dodam.baby.Baby;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,10 +16,10 @@ import java.util.List;
 
 @Table(name = "diary")
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
+@Builder
 public class Diary {
 
   @Id
@@ -26,18 +27,18 @@ public class Diary {
   @Column(name = "id", updatable = false)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "baby_id", nullable = false)
-  private Baby baby;
-
-  @Column(name = "date", nullable = false)
-  private LocalDateTime date;
+  @Column(name = "date")
+  private LocalDate date;
 
   @Column(name = "memo")
   private String memo;
 
-  @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL, orphanRemoval = true)
-  @ToString.Exclude
-  private List<DiaryRecord> records = new ArrayList<>();
+  @ManyToOne
+  @JoinColumn(name = "baby_id")
+  private Baby baby;
+
+  @OneToMany(mappedBy = "diary", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private List<DiaryRecord> recordList = new ArrayList<>();
 
 }
