@@ -53,7 +53,6 @@ public class DiaryService {
 
         Diary diary = diaryRepository.findByBabyIdAndDate(babyId, date)
                 .orElseThrow(() -> new CustomException(DIARY_NOT_FOUND));
-               // .orElseGet(() -> creatEmptyDiary(baby,date));
 
         List<DiaryRecord> list = diary.getRecordList() != null ? diary.getRecordList() : new ArrayList<>(); // null 방어
 

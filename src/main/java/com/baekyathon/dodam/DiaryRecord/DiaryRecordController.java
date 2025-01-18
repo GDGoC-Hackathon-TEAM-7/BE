@@ -1,7 +1,7 @@
 package com.baekyathon.dodam.DiaryRecord;
 
-import com.baekyathon.dodam.diary.DiaryReqDto;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/diary-records")
+@RequestMapping("/diaryRecords")
+@Tag(name = "육아다이어리 기록", description = "육아다이어리 스탬프 API")
 public class DiaryRecordController {
 
     private final DiaryRecordService diaryRecordService;
 
     @PostMapping
-    @Operation(summary = "DiaryRecord 생성", description = "DiaryRecord를 생성합니다.")
+    @Operation(summary = "육아 다이어리 기록하기", description = "육아 다이어리를 기록합니다")
     public ResponseEntity<DiaryRecordResDto> createDiaryRecord(
             @RequestBody DiaryRecordReqDto request) {
         DiaryRecordResDto response = diaryRecordService.createDiaryRecord(request);
