@@ -22,8 +22,8 @@ public class BaseResponse<T> {
     }
 
     // 실패한 응답 (예: 데이터가 없거나 요청이 잘못된 경우)
-    public static <T> BaseResponse<T> fail(HttpStatus status, String message) {
-        return new BaseResponse<>(status, message, null);
+    public static <T> BaseResponse<T> fail(ErrorInterface error) {
+        return new BaseResponse<>(error.getStatus(), error.getMessage(),null);
     }
 
     // 서버 오류 응답

@@ -30,18 +30,14 @@ public class Baby {
     @Column(name="birth", nullable = false)
     private Date birth;
 
-    @Column(name= "img_url")
-    private String imgUrl;
-
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
     @Builder
-    public Baby(String name, String gender, Date birth, String imgUrl, User user) {
+    public Baby(String name, String gender, Date birth) {
         this.name = name;
         this.gender = gender;
         this.birth = birth;
-        this.imgUrl = imgUrl;
     }
 }
