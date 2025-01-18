@@ -2,9 +2,11 @@ package com.baekyathon.dodam.diary;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.baekyathon.dodam.DiaryRecord.DiaryRecord;
 import com.baekyathon.dodam.DiaryRecord.DiaryRecordResDto;
 import com.baekyathon.dodam.baby.Baby;
 import com.baekyathon.dodam.baby.BabyRepository;
@@ -23,7 +25,7 @@ public class DiaryService {
 
     // 날짜 기반으로 diaryId 알아낸다.
 
-    @Transactional(readOnly = true)
+    @Transactional
     public Long findDiaryIdByBabyIdAndDate(Long babyId, LocalDate date) {
         return diaryRepository.findByBabyIdAndDate(babyId, date)
                 .map(Diary::getId)
@@ -44,7 +46,7 @@ public class DiaryService {
         return DiaryResDto.from(savedDiary);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public DiaryResDto getDiaryAndRecordsByBabyIdAndDate(Long babyId, LocalDate date) {
         Baby baby = babyRepository.findById(babyId)
                 .orElseThrow(() -> new CustomException(BABY_NOT_FOUND));
@@ -52,7 +54,10 @@ public class DiaryService {
         Diary diary = diaryRepository.findByBabyIdAndDate(babyId, date)
                 .orElseGet(() -> creatEmptyDiary(baby,date));
 
-        List<DiaryRecordResDto> records = diary.getRecordList().stream()
+        List<DiaryRecord> list = diary.getRecordList() != null ? diary.getRecordList() : new ArrayList<>(); // null 방어
+
+        List<DiaryRecordResDto> records = list
+                .stream()
                 .map(DiaryRecordResDto::from)
                 .collect(Collectors.toList());
 
