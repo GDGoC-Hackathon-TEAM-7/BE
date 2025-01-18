@@ -1,37 +1,63 @@
 package com.baekyathon.dodam.diary;
 
 
-import com.baekyathon.dodam.DiaryRecord.DiaryRecordDTO;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.baekyathon.dodam.DiaryRecord.DiaryRecordResDto;
+import com.baekyathon.dodam.baby.Baby;
+import com.baekyathon.dodam.baby.BabyRepository;
+import com.baekyathon.dodam.base.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import static com.baekyathon.dodam.base.ErrorCode.BABY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class DiaryService {
     private final DiaryRepository diaryRepository;
+    private final BabyRepository babyRepository;
 
-    // 날짜 별 전체 기록 조회
-    public List<DiaryRecordDTO> getDiaryRecordsByDate(Long diaryId, String date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-      // Find diary by ID and filter records by the given date
-      Diary diary = diaryRepository.findById(diaryId)
-          .orElseThrow(() -> new IllegalArgumentException("Diary not found"));
+    // Diary 생성
+    @Transactional
+    public DiaryResDto createDiary(DiaryReqDto diaryReqDto) {
+        Baby baby = babyRepository.findById(diaryReqDto.babyId())
+                .orElseThrow(() -> new CustomException(BABY_NOT_FOUND));
 
-      return diary.getRecords().stream()
-          .filter(record -> dateFormat.format(record.getTimestamp()).equals(date))
-          .map(record -> new DiaryRecordDTO(
-              record.getTimestamp(),
-              record.getCategory().name() // Enum을 String으로 변환
-          ))
-          .collect(Collectors.toList());
+        // Diary 생성
+        Diary diary = diaryReqDto.toEntity(baby);
+
+        Diary savedDiary = diaryRepository.save(diary);
+
+        return DiaryResDto.from(savedDiary);
     }
 
-    // 사진 첨부
+    @Transactional(readOnly = true)
+    public DiaryResDto getDiaryAndRecordsByBabyIdAndDate(Long babyId, LocalDate date) {
+        Baby baby = babyRepository.findById(babyId)
+                .orElseThrow(() -> new CustomException(BABY_NOT_FOUND));
 
+        Diary diary = diaryRepository.findByBabyIdAndDate(babyId, date)
+                .orElseGet(() -> creatEmptyDiary(baby,date));
 
-    // 메모 추가
+        List<DiaryRecordResDto> records = diary.getRecordList().stream()
+                .map(DiaryRecordResDto::from)
+                .collect(Collectors.toList());
+
+        return DiaryResDto.fromWithRecords(diary, records);
+    }
+
+    // 사용자가 입력한 날짜가 없을 경우 빈 다이어리 생성
+    private Diary creatEmptyDiary(Baby baby, LocalDate date) {
+        Diary newDiary = Diary.builder()
+                .baby(baby)
+                .date(date)
+                .memo("")
+                .build();
+        return diaryRepository.save(newDiary);
+    }
 
 }
