@@ -52,7 +52,8 @@ public class DiaryService {
                 .orElseThrow(() -> new CustomException(BABY_NOT_FOUND));
 
         Diary diary = diaryRepository.findByBabyIdAndDate(babyId, date)
-                .orElseGet(() -> creatEmptyDiary(baby,date));
+                .orElseThrow(() -> new CustomException(DIARY_NOT_FOUND));
+               // .orElseGet(() -> creatEmptyDiary(baby,date));
 
         List<DiaryRecord> list = diary.getRecordList() != null ? diary.getRecordList() : new ArrayList<>(); // null 방어
 
@@ -64,14 +65,14 @@ public class DiaryService {
         return DiaryResDto.fromWithRecords(diary, records);
     }
 
-    // 사용자가 입력한 날짜가 없을 경우 빈 다이어리 생성
-    private Diary creatEmptyDiary(Baby baby, LocalDate date) {
-        Diary newDiary = Diary.builder()
-                .baby(baby)
-                .date(date)
-                .memo("")
-                .build();
-        return diaryRepository.save(newDiary);
-    }
+//    // 사용자가 입력한 날짜가 없을 경우 빈 다이어리 생성
+//    private Diary creatEmptyDiary(Baby baby, LocalDate date) {
+//        Diary newDiary = Diary.builder()
+//                .baby(baby)
+//                .date(date)
+//                .memo("")
+//                .build();
+//        return diaryRepository.save(newDiary);
+//    }
 
 }
