@@ -2,12 +2,12 @@ package com.baekyathon.dodam.baby;
 
 import com.baekyathon.dodam.user.User;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public record BabyReqDto (
         String name,
         String gender,
-        Date birth,
+        LocalDate birth,
         Long userId
 ){
     public Baby toEntity(User user) {

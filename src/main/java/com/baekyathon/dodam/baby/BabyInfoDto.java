@@ -2,13 +2,14 @@ package com.baekyathon.dodam.baby;
 
 import lombok.Builder;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
 public record BabyInfoDto(
         String name,
         String gender,
-        Date birth
+        LocalDate birth
 ){
     public static BabyInfoDto from (Baby baby) {
         return BabyInfoDto.builder()

@@ -8,8 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Table(name="baby")
@@ -30,7 +30,7 @@ public class Baby {
   private String gender;
 
   @Column(name="birth", nullable = false)
-  private Date birth;
+  private LocalDate birth;
 
   @ManyToOne(fetch=FetchType.LAZY)
   @JoinColumn(name="user_id")
@@ -41,14 +41,14 @@ public class Baby {
   List<Diary> diaryList = new ArrayList<>();
 
   @Builder
-  public Baby(String name, String gender, Date birth, User user) {
+  public Baby(String name, String gender, LocalDate birth, User user) {
     this.name = name;
     this.gender = gender;
     this.birth = birth;
     this.user = user;
   }
 
-  public void update(String name, String gender, Date birth) {
+  public void update(String name, String gender, LocalDate birth) {
     this.name = name;
     this.gender = gender;
     this.birth = birth;
